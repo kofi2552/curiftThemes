@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import { Buffer } from "buffer";
 
 dotenv.config();
