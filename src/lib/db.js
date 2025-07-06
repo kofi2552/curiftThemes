@@ -11,6 +11,8 @@ dotenv.config();
 //   dialect: "mysql",
 // });
 
+import pg from "pg";
+
 // const caCert = fs.readFileSync(path.resolve("certs/ca.pem")).toString();
 const caCert = Buffer.from(process.env.AIVEN_CA_CERT, "base64").toString(
   "utf-8"
@@ -23,6 +25,7 @@ const sequelize = new Sequelize({
   port: 28370,
   database: "defaultdb",
   dialect: "postgres",
+  dialectModule: pg,
   dialectOptions: {
     ssl: {
       require: true,
