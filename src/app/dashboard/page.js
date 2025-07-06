@@ -9,6 +9,7 @@ import {
   CopySimple,
   CircleNotch,
 } from "phosphor-react";
+import createRequest from "@/utils/createRequest";
 
 export default function Dashboard() {
   const [licenses, setLicenses] = useState([]);
@@ -20,10 +21,8 @@ export default function Dashboard() {
   const fetchLicenses = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/license/licenses");
-      const data = await res.json();
-      setLicenses(data);
-      console.log("Response:", data); // log what you're actually getting
+      const res = await createRequest.get("/api/license/licenses");
+      setLicenses(res.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -39,39 +38,40 @@ export default function Dashboard() {
     if (!form.customer || !form.email) {
       return alert("Please fill in the customer name and email fields.");
     }
+
     try {
-      if (form.customer || form.email) {
-        setGenerating(true);
-        await fetch("/api/license/generate", {
-          method: "POST",
-          body: JSON.stringify(form),
-          headers: { "Content-Type": "application/json" },
-        });
-        setForm({ customer: "", email: "" });
-        await fetchLicenses();
-        setGenerating(false);
-      }
+      setGenerating(true);
+      await createRequest.post("/api/license/generate", form);
+      setForm({ customer: "", email: "" });
+      await fetchLicenses();
     } catch (error) {
       console.error("Error generating license:", error);
+    } finally {
       setGenerating(false);
     }
   };
 
   const toggleActivation = async (key, isActive) => {
     const endpoint = isActive ? "deactivate" : "activate";
-    if (isActive) {
-      if (!confirm("Are you sure you want to deactivate this license?")) return;
-    } else {
-      if (!confirm("Are you sure you want to activate this license?")) return;
+
+    const confirmMsg = isActive
+      ? "Are you sure you want to deactivate this license?"
+      : "Are you sure you want to activate this license?";
+
+    if (!confirm(confirmMsg)) return;
+
+    try {
+      setLoading(true);
+      await createRequest.post(`/api/license/${endpoint}`, {
+        key,
+        domain: "example.com",
+      });
+      await fetchLicenses();
+    } catch (error) {
+      console.error("Error toggling activation:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(true);
-    await fetch(`/api/license/${endpoint}`, {
-      method: "POST",
-      body: JSON.stringify({ key, domain: "example.com" }),
-      headers: { "Content-Type": "application/json" },
-    });
-    setLoading(false);
-    fetchLicenses();
   };
 
   const filtered = licenses.filter(
