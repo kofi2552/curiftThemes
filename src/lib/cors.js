@@ -5,7 +5,15 @@ import Cors from "cors";
 const cors = initMiddleware(
   Cors({
     methods: ["GET", "POST", "OPTIONS"],
-    origin: process.env.ALLOWED_ORIGIN, // change to specific domain for production
+    // origin: [
+    //   "http://localhost",
+    //   "http://127.0.0.1",
+    //   "http://127.0.0.1:3000",
+    //   "http://localhost:3000",
+    //   "http://localhost/wordpress",
+    //   "http://localhost/wordpress/wp-admin/",
+    // ],
+    origin: process.env.ALLOWED_ORIGIN,
     allowedHeaders: ["Content-Type"],
   })
 );

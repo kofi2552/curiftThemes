@@ -10,6 +10,7 @@ import {
   CircleNotch,
 } from "phosphor-react";
 import createRequest from "@/utils/createRequest";
+import e from "cors";
 
 export default function Dashboard() {
   const [licenses, setLicenses] = useState([]);
@@ -23,6 +24,7 @@ export default function Dashboard() {
       setLoading(true);
       const res = await createRequest.get("/api/license/licenses");
       setLicenses(res.data);
+      console.log("Fetched licenses:", res.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -51,21 +53,26 @@ export default function Dashboard() {
     }
   };
 
-  const toggleActivation = async (key, isActive) => {
-    const endpoint = isActive ? "deactivate" : "activate";
+  const toggleActivation = async (key, domain, isActive) => {
+    const endpoint = isActive ? "deactivate" : "reactivate";
 
     const confirmMsg = isActive
       ? "Are you sure you want to deactivate this license?"
       : "Are you sure you want to activate this license?";
 
     if (!confirm(confirmMsg)) return;
-
+    const code = key;
     try {
       setLoading(true);
-      await createRequest.post(`/api/license/${endpoint}`, {
-        key,
-        domain: "example.com",
-      });
+      if (isActive) {
+        await createRequest.post(
+          `/api/license/${endpoint}?code=${code}&domain=${domain}`
+        );
+      } else {
+        await createRequest.get(
+          `/api/license/${endpoint}?code=${code}&domain=${domain}`
+        );
+      }
       await fetchLicenses();
     } catch (error) {
       console.error("Error toggling activation:", error);
@@ -110,7 +117,7 @@ export default function Dashboard() {
         {/* Main Content */}
         <main className="p-6 mt-4">
           <div className="max-w-5xl mx-auto space-y-8">
-            <div className="bg-white p-6">
+            {/* <div className="bg-white p-6">
               <h2 className="text-lg font-semibold mb-4">New License</h2>
               <div className="flex flex-col md:flex-row gap-4 pb-2">
                 <input
@@ -142,7 +149,7 @@ export default function Dashboard() {
                   Generate
                 </button>
               </div>
-            </div>
+            </div> */}
 
             <div className="bg-white p-6">
               <div className="flex items-center justify-between mb-4">
@@ -165,7 +172,7 @@ export default function Dashboard() {
                     <tr className="border-b border-b-[#e4e4e4] text-sm text-gray-500">
                       <th className="py-2 font-normal">Key</th>
                       <th className="py-2 font-normal">Customer</th>
-                      <th className="py-2 font-normal">Email</th>
+                      <th className="py-2 font-normal">Type</th>
                       <th className="py-2 font-normal">Domain</th>
                       <th className="py-2 font-normal">Status</th>
                       <th className="py-2 text-center font-normal">Activate</th>
@@ -178,7 +185,10 @@ export default function Dashboard() {
                           colSpan={6}
                           className="py-4 text-center text-blue-500"
                         >
-                          <CircleNotch size={30} className="animate-spin" />
+                          <CircleNotch
+                            size={30}
+                            className="animate-spin mx-auto align-middle"
+                          />
                         </td>
                       </tr>
                     ) : filtered.length === 0 ? (
@@ -215,7 +225,7 @@ export default function Dashboard() {
                             {license.customer || "—"}
                           </td>
                           <td className="py-2 text-sm text-gray-500">
-                            {license.email || "—"}
+                            {license.type || "—"}
                           </td>
                           <td className="py-2 text-sm flex items-center gap-1 text-blue-700">
                             <Globe size={16} />
@@ -235,7 +245,11 @@ export default function Dashboard() {
                           <td className="py-2 text-center">
                             <button
                               onClick={() =>
-                                toggleActivation(license.key, license.isActive)
+                                toggleActivation(
+                                  license.key,
+                                  license.domain,
+                                  license.isActive
+                                )
                               }
                               className="text-blue-600 hover:text-blue-800 cursor-pointer"
                             >

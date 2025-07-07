@@ -2,6 +2,7 @@
 const nextConfig = {
   devIndicators: false,
   allowedDevOrigins: ["*"],
+  trailingSlash: false,
 };
 
 export default nextConfig;

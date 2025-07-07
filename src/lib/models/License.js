@@ -15,13 +15,23 @@ const License = sequelize.define(
       unique: true,
     },
     customer: DataTypes.STRING,
-    email: DataTypes.STRING,
+    type: DataTypes.STRING,
     domain: DataTypes.STRING,
+    support: DataTypes.STRING,
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
     activatedAt: DataTypes.DATE,
+    deactivatedAt: DataTypes.DATE,
+    maxUsages: {
+      type: DataTypes.INTEGER,
+      defaultValue: 10,
+    },
+    Usages: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     tableName: "curiftthemeslicenses", // optional: ensures table name
@@ -31,7 +41,7 @@ const License = sequelize.define(
 
 export default License;
 
-// License.sync({ alter: true })
+// License.sync({ force: true })
 //   .then(() => {
 //     console.log("License table created or updated");
 //   })
