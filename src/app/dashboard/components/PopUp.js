@@ -26,13 +26,13 @@ export default function PopupModal() {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed z-50 bottom-10 right-10"
+          className="fixed border border-[#e4e4e4] rounded-xl z-50 bottom-2 mx-4 md:bottom-10 md:right-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-xl p-6 max-w-sm w-full relative"
+            className="bg-white rounded-xl p-6  w-full mx-auto md:max-w-sm relative"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
