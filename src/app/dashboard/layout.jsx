@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
-import { ArrowElbowDownRight } from "phosphor-react";
+import { ArrowElbowDownRight, House } from "phosphor-react";
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
@@ -74,18 +74,32 @@ export default function DashboardLayout({ children }) {
       {/* Main content area */}
       <div className="flex-1 bg-gray-50">
         <header className="bg-white border-b border-b-[#e4e4e4] px-6 py-8">
-          <h1 className="text-xl font-semibold">
-            {pathname.startsWith("/dashboard/license")
-              ? "Edit License"
-              : pathname.startsWith("/dashboard/support")
-              ? "Support"
-              : pathname.startsWith("/dashboard/notice")
-              ? "Notice Board"
-              : "Manage Licenses"}
-          </h1>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="md:hidden text-gray-800 hover:text-gray-600"
+            >
+              <House
+                size={32}
+                // weight="fill"
+                className="cursor-pointer"
+                aria-label="Go to Home"
+                onClick={() => (window.location.href = "/")}
+              />
+            </Link>
+            <h1 className="text-lg font-semibold">
+              {pathname.startsWith("/dashboard/license")
+                ? "Edit License"
+                : pathname.startsWith("/dashboard/support")
+                ? "Support"
+                : pathname.startsWith("/dashboard/notice")
+                ? "Notice Board"
+                : "Manage Licenses"}
+            </h1>
+          </div>
         </header>
 
-        <main className="w-full p-6">{children}</main>
+        <main className="w-full p-2 md:p-6">{children}</main>
       </div>
     </div>
   );

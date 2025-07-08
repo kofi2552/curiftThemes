@@ -100,9 +100,9 @@ export default function Dashboard() {
   return (
     <div className="w-full flex">
       {/* Main Content */}
-      <div className="w-full p-6 mt-4">
+      <div className="w-full p-2 md:p-6 mt-4">
         <div className="w-full mx-auto space-y-8">
-          <div className="bg-white p-6">
+          <div className="bg-white p-2 md:p-6">
             <h2 className="text-lg font-semibold mb-4">Activate License</h2>
             <div className="flex flex-col md:flex-row gap-4 pb-2">
               <input
