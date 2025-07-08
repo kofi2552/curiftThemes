@@ -6,8 +6,9 @@ import { withCORS, handlePreflight } from "@/lib/cors";
 
 dotenv.config();
 
-const apiUrl = process.env.TEST_PKEY_URL;
-const token = process.env.TEST_PKEY_TOKEN;
+const apiUrl = process.env.ENVATO_API_URL || process.env.TEST_PKEY_URL;
+const token =
+  process.env.LIVE_PERSONAL_AUTH_TOKEN || process.env.TEST_PKEY_TOKEN;
 
 // Handle OPTIONS (preflight)
 export async function OPTIONS(req) {
