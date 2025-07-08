@@ -102,6 +102,9 @@ export default function Dashboard() {
       {/* Main Content */}
       <div className="w-full p-2 md:p-6 mt-4">
         <div className="w-full mx-auto space-y-8">
+          <p className="text-gray-400 text-xs mb-4 sm:text-base">
+            Test License Key: 86781236-23d0-4b3c-7dfa-c1c147e0dece
+          </p>
           <div className="bg-white p-2 md:p-6">
             <h2 className="text-lg font-semibold mb-4">Activate License</h2>
             <div className="flex flex-col md:flex-row gap-4 pb-2">
@@ -351,6 +354,9 @@ export default function Dashboard() {
               )}
             </div>
           </div>
+          <span className="text-red-500 text-xs mt-6">
+            Note: This is not using the live Envato API.
+          </span>
         </div>
       </div>
     </div>

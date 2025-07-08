@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import { GitlabLogo } from "phosphor-react";
 import Link from "next/link";
 import PopupModal from "./dashboard/components/PopUp";
 
@@ -23,15 +23,15 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Link
                 href="/dashboard"
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base px-6 py-3 rounded-md font-medium transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base flex items-center px-6 py-3 rounded-md font-medium transition"
               >
-                Browse Themes
+                Dashboard
               </Link>
               <a
-                href="#features"
-                className="border border-gray-300 text-sm sm:text-base px-6 py-3 rounded-md font-medium text-gray-700 hover:bg-gray-100 transition"
+                href="https://github.com/kofi2552/curiftThemes"
+                className="border border-gray-300 text-sm sm:text-base flex items-center gap-3 px-6 py-3 rounded-md font-medium text-gray-700 hover:bg-gray-100 transition"
               >
-                Support
+                <GitlabLogo size={32} weight="fill" /> Contribute
               </a>
             </div>
           </div>
