@@ -92,12 +92,12 @@ export default function LicenseDetails() {
       <div className="flex items-center gap-2 mb-6">
         <button
           onClick={handleCancel}
-          className="bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer"
+          className="bg-gray-50 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer"
           disabled={submitting}
         >
           <ArrowLeft />
         </button>
-        <h1 className="text-xl font-semibold text-gray-800">
+        <h1 className="text-sm md:text-xl font-semibold text-gray-800">
           License - {license.key}
         </h1>
       </div>
@@ -125,11 +125,10 @@ export default function LicenseDetails() {
                 </div>
               )
             )}
-            <div className="w-full mx-auto flex flex-col justify-center items-center py-8">
+            <div className="w-full mx-auto flex flex-col justify-center items-center py-8 hidden md:flex">
               <p className="text-sm text-gray-500 mb-4">
                 <span className="text-red-500">*</span> All fields are editable
-                except the <span className="text-blue-500">right</span>{" "}
-                contents.
+                except the <span className="text-blue-500">license info</span>
               </p>
               <div className="max-w-xl mx-auto flex items-center gap-6">
                 <div className="w-full flex items-center gap-6">
@@ -181,6 +180,30 @@ export default function LicenseDetails() {
                 </p>
               </div>
             ))}
+          </div>
+          <div className="w-full mx-auto flex flex-col justify-center items-center py-8 block md:hidden">
+            <p className="text-sm text-gray-500 mb-4">
+              <span className="text-red-500">*</span> All fields are editable
+              except the <span className="text-blue-500">license info</span>
+            </p>
+            <div className="max-w-xl mx-auto flex items-center gap-6">
+              <div className="w-full flex items-center gap-6">
+                <button
+                  onClick={handleUpdate}
+                  className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-lg cursor-pointer"
+                  disabled={submitting}
+                >
+                  Update
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-600 text-white hover:bg-red-700 px-8 py-4 rounded-lg cursor-pointer"
+                  disabled={submitting}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

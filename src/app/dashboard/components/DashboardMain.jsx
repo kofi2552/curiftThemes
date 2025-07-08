@@ -9,6 +9,7 @@ import {
   CopySimple,
   CircleNotch,
   CheckCircle,
+  Eye,
 } from "phosphor-react";
 import createRequest from "@/utils/createRequest";
 
@@ -196,12 +197,12 @@ export default function Dashboard() {
                         <td className="py-2 text-gray-800">
                           <div className="flex items-center gap-2">
                             <span
-                              className="text-lg cursor-pointer underline hover:text-gray-600"
+                              className="text-lg flex items-center gap-1 cursor-pointer underline hover:text-gray-600"
                               onClick={() =>
                                 (window.location.href = `/dashboard/license/${license.key}`)
                               }
                             >
-                              {license.key}
+                              <Eye size={20} /> {license.key}
                             </span>
                             <button
                               onClick={() => handleCopy(license.key)}
