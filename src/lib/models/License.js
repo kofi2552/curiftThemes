@@ -18,6 +18,10 @@ const License = sequelize.define(
     type: DataTypes.STRING,
     domain: DataTypes.STRING,
     support: DataTypes.STRING,
+    soldAt: DataTypes.STRING,
+    price: DataTypes.DECIMAL(10, 2),
+    itemID: DataTypes.STRING,
+    itemName: DataTypes.STRING,
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
